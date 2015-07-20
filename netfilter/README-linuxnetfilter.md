@@ -39,82 +39,48 @@ MSE500添加netfilter的步骤
 
         *This is the [Makefile](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).*
 
-4. 修改kernel/net下面的Kconfig和Makefile:
+4. 打开kernel/net下面的Kconfig和Makefile:
 
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
         /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Kconfig
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Makefile
+        
+5. 修改Kconfig和Makefile:
 
-I am a robot
+        *This is the new [Kconfig](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Kconfig).*
+        *This is the new [Makefile](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Makefile).*
+
+配置编译应用程序
 ------------
 
-Maybe you want to print `robot` to the console 1000 times. Why not?
+1. 进入buildroot下，配置kernel:
 
-    def robot_invasion
-      puts("robot " * 1000)
-    end
+        wu@ubuntu:~/mse500-0.9.4$ cd buildroot
+        wu@ubuntu:~/mse500-0.9.4/buildroot$ make linux26-menuconfig
+        
+2. 勾选netfilter和hanftest程序:
 
-You see, that was formatted as code because it's been indented by four spaces.
+   进入Networking/Networking options/
+   选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
+   
+3. 编译pkg文件:
 
-How about we throw some angle braces and ampersands in there?
+        wu@ubuntu:~/mse500-0.9.4$ ./buildall.sh mkimg
 
-    <div class="footer">
-        &copy; 2004 Foo Corporation
-    </div>
-
-Set in stone
+测试应用程序
 ------------
 
-Preformatted blocks are useful for ASCII art:
+1. 把pkg用ftp烧到板子上:
 
-<pre>
-             ,-. 
-    ,     ,-.   ,-. 
-   / \   (   )-(   ) 
-   \ |  ,.>-(   )-< 
-    \|,' (   )-(   ) 
-     Y ___`-'   `-' 
-     |/__/   `-' 
-     | 
-     | 
-     |    -hrr- 
-  ___|_____________ 
-</pre>
+2. 在Windows上telnet:
 
-Playing the blame game
-----------------------
+   进入Networking/Networking options/
+   选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
+   
+3. 编译pkg文件:
 
-If you need to blame someone, the best way to do so is by quoting them:
-
-> I, at any rate, am convinced that He does not throw dice.
-
-Or perhaps someone a little less eloquent:
-
-> I wish you'd have given me this written question ahead of time so I
-> could plan for it... I'm sure something will pop into my head here in
-> the midst of this press conference, with all the pressure of trying to
-> come up with answer, but it hadn't yet...
->
-> I don't want to sound like
-> I have made no mistakes. I'm confident I have. I just haven't - you
-> just put me under the spot here, and maybe I'm not as quick on my feet
-> as I should be in coming up with one.
-
-Table for two
--------------
-
-<table>
-  <tr>
-    <th>ID</th><th>Name</th><th>Rank</th>
-  </tr>
-  <tr>
-    <td>1</td><td>Tom Preston-Werner</td><td>Awesome</td>
-  </tr>
-  <tr>
-    <td>2</td><td>Albert Einstein</td><td>Nearly as awesome</td>
-  </tr>
-</table>
+        wu@ubuntu:~/mse500-0.9.4$ ./buildall.sh mkimg
 
 Crazy linking action
 --------------------
