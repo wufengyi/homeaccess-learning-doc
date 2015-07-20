@@ -10,7 +10,7 @@ Linux netfilter 简介
 linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 passed, blocked or redirected to another IP/port
 三种操作机制。具体的原理里面涉及到的东西比较多，在这里不赘述。下面的链接讲的比较详细。
 
-*View the [linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
+*Understand the [linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
 
 MSE500添加netfilter的步骤
 -------------------------------
@@ -31,20 +31,20 @@ MSE500添加netfilter的步骤
  
 3. 分别添加内容到各个文件:
 
-*[hanftest.h](https://github.com/andrewstucki/netfilter-skeleton/blob/master/lce.c).*
+        *This is the [hanftest.h](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.h).*
 
-     
+        *This is the [hanftest.c](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.c).*
 
+        *This is the [Kconfig](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Kconfig).*
 
+        *This is the [Makefile](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).*
 
+4. 修改kernel/net下面的Kconfig和Makefile:
 
-
-<dl>
-  <dt>Lower cost</dt>
-  <dd>The new version of this product costs significantly less than the previous one!</dd>
-  <dt>Easier to use</dt>
-  <dd>We've changed the product so that it's much easier to use!</dd>
-</dl>
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
+        /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Kconfig
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Makefile
 
 I am a robot
 ------------
