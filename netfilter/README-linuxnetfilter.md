@@ -2,15 +2,15 @@ Linux netfilter small test
 ================================
 
 在Linux kernel上添加了一个netfilter的application。
-顺便说明一下Linux netfilter的支持与应用，我们一起来学习。
+顺便说明一下Linux netfilter的内容与应用，我们一起来学习。
 
 Linux netfilter 简介
 -------------------------
 
-linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 passed, blocked or redirected to another IP/port
-三种操作机制。具体的原理里面涉及到的东西比较多，在这里不赘述。下面的链接讲的比较详细。
+linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 pass, block or redirect to another IP/port
+三种操作机制。具体的原理里面涉及到的东西比较多，我这边也不是全明白，还需要学习，在这里不赘述。下面的链接讲的比较详细。
 
-*Understand the [linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
+*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
 
 MSE500添加netfilter的步骤
 -------------------------------
@@ -29,15 +29,15 @@ MSE500添加netfilter的步骤
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Kconfig
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Makefile
  
-3. 分别添加内容到各个文件:
+3. 分别添加下面链接的内容到各个文件:
 
-        *This is the [hanftest.h](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.h).*
+        hanftest.h is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.h).
 
-        *This is the [hanftest.c](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.c).*
+        hanftest.c is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.c).
 
-        *This is the [Kconfig](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Kconfig).*
+        Kconfig is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Kconfig).
 
-        *This is the [Makefile](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).*
+        Makefile is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).
 
 4. 打开kernel/net下面的Kconfig和Makefile:
 
@@ -46,10 +46,10 @@ MSE500添加netfilter的步骤
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Kconfig
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Makefile
         
-5. 修改Kconfig和Makefile:
+5. 修改Kconfig和Makefile，下面链接的文件是修改后的:
 
-        *This is the new [Kconfig](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Kconfig).*
-        *This is the new [Makefile](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Makefile).*
+        Here is the new Kconfig(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Kconfig).
+        Here is the new Makefile(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Makefile).
 
 配置编译应用程序
 ------------
@@ -61,7 +61,7 @@ MSE500添加netfilter的步骤
         
 2. 勾选netfilter和hanftest程序:
 
-   进入Networking/Networking options/
+   进入Networking/Networking options/，
    选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
    
 3. 编译pkg文件:
@@ -71,9 +71,9 @@ MSE500添加netfilter的步骤
 测试应用程序
 ------------
 
-1. 把pkg用ftp烧到板子上:
+1. 把pkg用ftp烧到目标机上:
 
-2. 在Windows上ping板子:
+2. 在Windows上ping目标机IP:
 
 3. 出现如下LOG证明测试成功:
  
@@ -93,6 +93,8 @@ MSE500添加netfilter的步骤
 *[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
 
 *[Adding-a-new-kernel-module-to-linux-source-tree](https://geekwentfreak-raviteja.rhcloud.com/blog/2010/10/24/adding-a-new-kernel-module-to-linux-source-tree/?utm_content=buffer03878&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).*
+
+*[Sample linux netfilter](https://github.com/andrewstucki/netfilter-skeleton).*
 
 *[Sample linux firewall using netfilter](https://github.com/smallen3/Linux-Firewall).*
 
