@@ -22,11 +22,22 @@ MSE500添加netfilter的步骤
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ mkdir hanftest
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ cd hanftest/
 
-2. In Rails, you can do a shortcut:
+2. 创建netfilter主文件，Kconfig文件及Makefile:
 
-        ['a', 'b'].map(&:uppercase)
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.h
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.c
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Kconfig
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Makefile
+ 
+3. 分别添加内容到各个文件:
 
-Some people seem to like definition lists
+*[hanftest.h](https://github.com/andrewstucki/netfilter-skeleton/blob/master/lce.c).*
+
+     
+
+
+
+
 
 <dl>
   <dt>Lower cost</dt>
