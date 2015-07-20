@@ -19,6 +19,8 @@ MSE500添加netfilter的步骤
 
         wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
         /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ mkdir hanftest
+        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ cd hanftest/
 
 2. In Rails, you can do a shortcut:
 
