@@ -8,5 +8,5 @@ Encouter the Markdown documentaion tool
 Markdown doc style example
 --------------------
 
-*Through the [example](https://github.github.com/github-flavored-markdown/sample_content.html).I learned how to write my first markdown based github REAME.md:[README-linuxnetfilter.md](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/README-linuxnetfilter.md).*
+*Through this [example](https://github.github.com/github-flavored-markdown/sample_content.html).I learned how to write my first markdown based github REAME.md:[README-linuxnetfilter.md](https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/README-linuxnetfilter.md).*
 
