@@ -73,21 +73,28 @@ MSE500添加netfilter的步骤
 
 1. 把pkg用ftp烧到板子上:
 
-2. 在Windows上telnet:
+2. 在Windows上ping板子:
 
-   进入Networking/Networking options/
-   选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
-   
-3. 编译pkg文件:
+3. 出现如下LOG证明测试成功:
+ 
+        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
+        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
+        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
+        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
+        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
+        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
+        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
+        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
 
-        wu@ubuntu:~/mse500-0.9.4$ ./buildall.sh mkimg
 
-Crazy linking action
+有用的资源
 --------------------
 
-I get 10 times more traffic from [Google] [1] than from
-[Yahoo] [2] or [MSN] [3].
+*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
 
-  [1]: http://google.com/        "Google"
-  [2]: http://search.yahoo.com/  "Yahoo Search"
-  [3]: http://search.msn.com/    "MSN Search"
+*[Adding-a-new-kernel-module-to-linux-source-tree](https://geekwentfreak-raviteja.rhcloud.com/blog/2010/10/24/adding-a-new-kernel-module-to-linux-source-tree/?utm_content=buffer03878&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).*
+
+*[Sample linux firewall using netfilter](https://github.com/smallen3/Linux-Firewall).*
+
+
+
