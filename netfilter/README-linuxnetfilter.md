@@ -73,7 +73,7 @@ MSE500添加netfilter的步骤
 
 1. 把pkg用ftp烧到目标机上:
 
-2. 在Windows上ping目标机IP:
+2. 在Windows上telnet目标机IP:
 
 3. 出现如下LOG证明测试成功:
  
