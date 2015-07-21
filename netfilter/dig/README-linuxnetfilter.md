@@ -6,7 +6,8 @@ Linux netfilter digging
 Linux packet handling process
 -------------------------
 
-[packet handling](http://open-source.arkoon.net/kernel/kernel_net.png).*
+[Packet handling process when climb out of the driver layer](http://open-source.arkoon.net/kernel/kernel_net.png)
+[Comprehensive explanation on TCP/IP stack](http://samples.sainsburysebooks.co.uk/9780470377840_sample_382501.pdf)
 
 MSE500添加netfilter的步骤
 -------------------------------
