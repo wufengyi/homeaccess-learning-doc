@@ -16,6 +16,7 @@ Ubuntu link:
 Windows link:
 *[windows-latex-installation](http://www.howtotex.com/howto/installing-latex-on-windows/).*
 
+*Windows also have error,so try the basic-miktex-2.9.5105 and texmakerwin32_install,success.*
 
 
 Some online learning material
