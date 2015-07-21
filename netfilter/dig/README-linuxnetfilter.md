@@ -1,16 +1,12 @@
-Linux netfilter small test
+Linux netfilter digging 
 ================================
 
-在Linux kernel上添加了一个netfilter的application。
-顺便说明一下Linux netfilter的内容与应用，我们一起来学习。
+在简单理解linux netfilter的原理之后，接下来会深入挖掘其中的原理。
 
-Linux netfilter 简介
+Linux packet handling process
 -------------------------
 
-linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 pass, block or redirect to another IP/port
-三种操作机制。具体的原理里面涉及到的东西比较多，我这边也不是全明白，还需要学习，在这里不赘述。下面的链接讲的比较详细。
-
-*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
+[packet handling](http://open-source.arkoon.net/kernel/kernel_net.png).*
 
 MSE500添加netfilter的步骤
 -------------------------------
