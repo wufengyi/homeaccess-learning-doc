@@ -1,0 +1,10 @@
+menu "Homeaccess Netfilter Test"
+	depends on NETFILTER
+config NETFILTER_TEST
+	tristate "NF test"
+        default n
+        help
+          Test netfilter on linux.
+
+endmenu
+
