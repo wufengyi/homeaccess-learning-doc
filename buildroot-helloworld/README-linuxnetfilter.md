@@ -1,55 +1,103 @@
-Linux netfilter small test
+Buildroot tiny test
 ================================
 
-在Linux kernel上添加了一个netfilter的application。
-顺便说明一下Linux netfilter的内容与应用，我们一起来学习。
+为了熟悉buildroot相关的一些原理，方便以后在工作中熟练添加package，对Buildroot进行了一个简单的测试。
 
-Linux netfilter 简介
+Buildroot简介
 -------------------------
 
-linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 pass, block or redirect to another IP/port
-三种操作机制。具体的原理里面涉及到的东西比较多，我这边也不是全明白，还需要学习，在这里不赘述。下面的链接讲的比较详细。
+*[Making Embedded Linux Easy ](http://www.buildroot.org/).*
 
-*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
-
-MSE500添加netfilter的步骤
+MSE500添加ha-helloworld package的步骤
 -------------------------------
 
-1. 在下面的路径新建hanftest文件夹:
+1. 在下面的路径新建ha-helloworld文件夹:
 
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
-        /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ mkdir hanftest
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ cd hanftest/
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ pwd
+        /home/wufengyi/mse500-0.9.4/buildroot/package
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ mkdir ha-helloworld
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ cd ha-helloworld/
 
-2. 创建netfilter主文件，Kconfig文件及Makefile:
+2. 创建Config.in文件及Makefile:
 
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.h
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.c
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Kconfig
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Makefile
- 
-3. 分别添加下面链接的内容到各个文件:
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ pwd
+        /home/wufengyi/mse500-0.9.4/buildroot/package/ha-helloworld
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ vim Config.in 
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ vim ha-helloworld.mk 
 
-        hanftest.h is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.h).
+3. 分别添加下面的内容到各个文件:
 
-        hanftest.c is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.c).
+Config.in
 
-        Kconfig is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Kconfig).
+```c
+  1 config BR2_PACKAGE_HELLOWORLD
+  2         bool "helloworld"
+  3         help
+  4           A sample application to understand how buildroot works
+  5
+```
+   
+ha-helloworld.mk
+```c
+{
+  1 #############################################################
+  2 #
+  3 # helloworld
+  4 #
+  5 #############################################################
+  6 #
+  7 HA_HELLOWORLD_VERSION:=0.0.1
+  8 HA_HELLOWORLD_SITE:=$(BASE_DIR)/../application/ha-helloworld
+  9 HA_HELLOWORLD_NAME:=ha-helloworld-$(HA_HELLOWORLD_VERSION)
+ 10 HA_HELLOWORLD_BUILD_DIR=$(BUILD_DIR)/ha-helloworld-$(HA_HELLOWORLD_VERSION)
+ 11
+ 12 $(HA_HELLOWORLD_BUILD_DIR)/.unpacked:
+ 13         ln -s $(HA_HELLOWORLD_SITE) $(HA_HELLOWORLD_BUILD_DIR)
+ 14         touch $(HA_HELLOWORLD_BUILD_DIR)/.unpacked
+ 15
+ 16 $(HA_HELLOWORLD_BUILD_DIR)/.configured: $(HA_HELLOWORLD_BUILD_DIR)/.unpacked
+ 17         touch $(HA_HELLOWORLD_BUILD_DIR)/.configured
+ 18
+ 19 $(HA_HELLOWORLD_BUILD_DIR)/helloworld: $(HA_HELLOWORLD_BUILD_DIR)/.configured
+ 20         (cd $(HA_HELLOWORLD_BUILD_DIR);$(TARGET_CONFIGURE_OPTS) $(MAKE))
+ 21
+ 22 $(TARGET_DIR)/usr/bin/helloworld: $(HA_HELLOWORLD_BUILD_DIR)/helloworld
+ 23         cp -af $(HA_HELLOWORLD_BUILD_DIR)/helloworld $(TARGET_DIR)/usr/bin/
+ 24
+ 25 ha-helloworld: $(TARGET_DIR)/usr/bin/helloworld
+ 26
+ 27 ha-helloworld-source:
+ 28
+ 29 ha-helloworld-clean:
+ 30         rm -f $(HA_HELLOWORLD_BUILD_DIR)/*.o $(HA_HELLOWORLD_BUILD_DIR)/helloworld
+ 31
+ 32 ha-helloworld-dirclean:
+ 33         rm -rf $(HA_HELLOWORLD_BUILD_DIR)
+ 34
+ 35 #############################################################
+ 36 #
+ 37 # Toplevel Makefile options
+ 38 #
+ 39 #############################################################
+ 40 ifeq ($(strip $(BR2_PACKAGE_HELLOWORLD)),y)
+ 41 TARGETS+=ha-helloworld
+ 42 endif
+}
+```
 
-        Makefile is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).
+4. 打开buildroot/package下面的Config.in:
 
-4. 打开kernel/net下面的Kconfig和Makefile:
-
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
-        /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Kconfig
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Makefile
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ pwd
+        /home/wufengyi/mse500-0.9.4/buildroot/package
+        wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ vim Config.in
         
-5. 修改Kconfig和Makefile，下面链接的文件是修改后的:
+5. 添加新的source到Config.in
 
-        Here is the new Kconfig(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Kconfig).
-        Here is the new Makefile(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Makefile).
+```c
+{
+308 source "package/ha-helloworld/Config.in"
+}
+```
 
 配置编译应用程序
 ------------
