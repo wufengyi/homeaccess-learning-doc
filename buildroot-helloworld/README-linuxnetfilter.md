@@ -11,25 +11,25 @@ Buildroot简介
 MSE500添加ha-helloworld package的步骤
 -------------------------------
 
-1. 在下面的路径新建ha-helloworld文件夹:
+####1. 在下面的路径新建ha-helloworld文件夹:
 
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ pwd
         /home/wufengyi/mse500-0.9.4/buildroot/package
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ mkdir ha-helloworld
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ cd ha-helloworld/
 
-2. 创建Config.in文件及Makefile:
+####2. 创建Config.in文件及Makefile:
 
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ pwd
         /home/wufengyi/mse500-0.9.4/buildroot/package/ha-helloworld
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ vim Config.in 
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package/ha-helloworld$ vim ha-helloworld.mk 
 
-3. 分别添加下面的内容到各个文件:
+####3. 分别添加下面的内容到各个文件:
 
 Config.in
 
-```c
+```config
   1 config BR2_PACKAGE_HELLOWORLD
   2         bool "helloworld"
   3         help
@@ -38,7 +38,7 @@ Config.in
 ```
    
 ha-helloworld.mk
-```c
+```makefile
 {
   1 #############################################################
   2 #
@@ -84,19 +84,45 @@ ha-helloworld.mk
  42 endif
 }
 ```
-
-4. 打开buildroot/package下面的Config.in:
+####4. 打开buildroot/package下面的Config.in:
 
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ pwd
         /home/wufengyi/mse500-0.9.4/buildroot/package
         wufengyi@Server-U12:~/mse500-0.9.4/buildroot/package$ vim Config.in
         
-5. 添加新的source到Config.in
+####5. 添加新的source到Config.in
 
 ```c
 {
 308 source "package/ha-helloworld/Config.in"
 }
+```
+
+####6. Add new directory ha-helloworld under application
+
+        wufengyi@Server-U12:~/mse500-0.9.4/application$ pwd
+        /home/wufengyi/mse500-0.9.4/application
+        wufengyi@Server-U12:~/mse500-0.9.4/application$ mkdir ha-helloworld
+        wufengyi@Server-U12:~/mse500-0.9.4/application$ cd ha-helloworld/
+
+####7. Create source file and Makefile 
+        wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ pwd
+        /home/wufengyi/mse500-0.9.4/application/ha-helloworld
+        wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ vim Makefile
+        wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ mkdir src
+        wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ cd src
+        wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld/src$ vim helloworld.c
+
+####8. 分别添加下面的内容到各个文件:
+
+Makefile
+
+```makefile
+  1 config BR2_PACKAGE_HELLOWORLD
+  2         bool "helloworld"
+  3         help
+  4           A sample application to understand how buildroot works
+  5
 ```
 
 配置编译应用程序
