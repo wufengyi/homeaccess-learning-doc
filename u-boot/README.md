@@ -35,8 +35,9 @@ Load image using u-boot
         host 192.168.5.200 is alive
 
 3. Unprotect flash if necessary:
+
         
-       MSE500-Boot> protect off all
+        MSE500-Boot> protect off all
 
         Un-Protect Flash Bank # 1
         .....................................................................................................................        ........... done
