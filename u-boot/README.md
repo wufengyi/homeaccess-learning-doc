@@ -1,102 +1,135 @@
-Linux netfilter small test
+Linux image loading from u-boot
 ================================
 
-在Linux kernel上添加了一个netfilter的application。
-顺便说明一下Linux netfilter的内容与应用，我们一起来学习。
+If there is some error with your kernel ,that you can not load a image from console using ftpget ,you have another choice.
 
-Linux netfilter 简介
--------------------------
+This document introduce a new and faster way to load image to flash from u-boot.
 
-linux netfilter提供了在packet经过网关的时候操纵packet的一种机制，根据packet里的原地址和目的地址，kernel能够进行 pass, block or redirect to another IP/port
-三种操作机制。具体的原理里面涉及到的东西比较多，我这边也不是全明白，还需要学习，在这里不赘述。下面的链接讲的比较详细。
+Download and install Tftpd32 on windows
+-------------------------------------
 
-*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
+*[Download tftpd32 from here](http://tftpd32.jounin.net/).*
 
-MSE500添加netfilter的步骤
+*[Install tftpd32 on windows using this link](http://wiki.emacinc.com/wiki/Installing_TFTP_server).*
+
+Load image using u-boot
 -------------------------------
 
-1. 在下面的路径新建hanftest文件夹:
+1. Into the U-boot console,type the following command:
 
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
-        /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ mkdir hanftest
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ cd hanftest/
+        MSE500-Boot> setenv ipaddr 192.168.5.21
+        MSE500-Boot> setenv serverip 192.168.5.200
 
-2. 创建netfilter主文件，Kconfig文件及Makefile:
+        192.168.5.21 is my board ip address.
+        192.168.5.200 is the ip address of my windows computer which holds a tftp server.
 
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.h
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim hanftest.c
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Kconfig
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net/hanftest$ vim Makefile
- 
-3. 分别添加下面链接的内容到各个文件:
+2. Check connectivity using ping:
 
-        hanftest.h is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.h).
+        MSE500-Boot> ping 192.168.5.200
+     
+        The result is as below,connect ok!       
+      
+        Using MAC Address B8:F8:28:33:12:30
+        PHY address is 0x05
+        IC+ IP175D found.
+        host 192.168.5.200 is alive
 
-        hanftest.c is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/hanftest.c).
-
-        Kconfig is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Kconfig).
-
-        Makefile is at(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/netfilter/Makefile).
-
-4. 打开kernel/net下面的Kconfig和Makefile:
-
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ pwd
-        /home/wu/mse500-0.9.4/linux-2.6.25.10-spc300/net
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Kconfig
-        wu@ubuntu:~/mse500-0.9.4/linux-2.6.25.10-spc300/net$ vim Makefile
+3. Unprotect flash if necessary:
         
-5. 修改Kconfig和Makefile，下面链接的文件是修改后的:
+       MSE500-Boot> protect off all
 
-        Here is the new Kconfig(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Kconfig).
-        Here is the new Makefile(https://github.com/wufengyi/homeaccess-learning-doc/blob/master/netfilter/linux-kernel/net/Makefile).
+        Un-Protect Flash Bank # 1
+        .....................................................................................................................        ........... done
 
-配置编译应用程序
-------------
 
-1. 进入buildroot下，配置kernel:
+4. Flash the image:
 
-        wu@ubuntu:~/mse500-0.9.4$ cd buildroot
-        wu@ubuntu:~/mse500-0.9.4/buildroot$ make linux26-menuconfig
+        MSE500-Boot> tftp 0x40100000 linux-kernel-2.6.25.10-arm
+        Using MAC Address B8:F8:28:33:12:30
+        PHY address is 0x05
+        IC+ IP175D found.
+        miiphy_register: non unique device name 'synop3504'
+        TFTP from server 192.168.5.200; our IP address is 192.168.5.21
+        Filename 'linux-kernel-2.6.25.10-arm'.
+        Load address: 0x40100000
+        Loading: #################################################################
+          #################################################################
+          #################################################################
+           #################################################################
+           #################################################################
+           #################################################################
+          #################################################################
+          #################################################################
+          #################################################################
+          ###################
+        done
+        Bytes transferred = 3091572 (2f2c74 hex)
+        MSE500-Boot> erase 0x30140000 0x3049FFFF
+        Erasing sector 20 ... ok.
+        Erasing sector 21 ... ok.
+        Erasing sector 22 ... ok.
+        Erasing sector 23 ... ok.
+        Erasing sector 24 ... ok.
+        Erasing sector 25 ... ok.
+        Erasing sector 26 ... ok.
+        Erasing sector 27 ... ok.
+        Erasing sector 28 ... ok.
+        Erasing sector 29 ... ok.
+        Erasing sector 30 ... ok.
+        Erasing sector 31 ... ok.
+        Erasing sector 32 ... ok.
+        Erasing sector 33 ... ok.
+        Erasing sector 34 ... ok.
+        Erasing sector 35 ... ok.
+        Erasing sector 36 ... ok.
+        Erasing sector 37 ... ok.
+        Erasing sector 38 ... ok.
+        Erasing sector 39 ... ok.
+        Erasing sector 40 ... ok.
+        Erasing sector 41 ... ok.
+        Erasing sector 42 ... ok.
+        Erasing sector 43 ... ok.
+        Erasing sector 44 ... ok.
+        Erasing sector 45 ... ok.
+        Erasing sector 46 ... ok.
+        Erasing sector 47 ... ok.
+        Erasing sector 48 ... ok.
+        Erasing sector 49 ... ok.
+        Erasing sector 50 ... ok.
+        Erasing sector 51 ... ok.
+        Erasing sector 52 ... ok.
+        Erasing sector 53 ... ok.
+        Erasing sector 54 ... ok.
+        Erasing sector 55 ... ok.
+        Erasing sector 56 ... ok.
+        Erasing sector 57 ... ok.
+        Erasing sector 58 ... ok.
+        Erasing sector 59 ... ok.
+        Erasing sector 60 ... ok.
+        Erasing sector 61 ... ok.
+        Erasing sector 62 ... ok.
+        Erasing sector 63 ... ok.
+        Erasing sector 64 ... ok.
+        Erasing sector 65 ... ok.
+        Erasing sector 66 ... ok.
+        Erasing sector 67 ... ok.
+        Erasing sector 68 ... ok.
+        Erasing sector 69 ... ok.
+        Erasing sector 70 ... ok.
+        Erasing sector 71 ... ok.
+        Erasing sector 72 ... ok.
+        Erasing sector 73 ... ok.
+        Erased 54 sectors
+        MSE500-Boot> cp.b 0x40100000 0x30140000 0x360000
+        Copy to Flash... ........................................................................................................... done
+
         
-2. 勾选netfilter和hanftest程序:
+5. Restart the board:
 
-   进入Networking/Networking options/，
-   选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
-   
-3. 编译pkg文件:
-
-        wu@ubuntu:~/mse500-0.9.4$ ./buildall.sh mkimg
-
-测试应用程序
-------------
-
-1. 把pkg用ftp烧到目标机上:
-
-2. 在Windows上telnet目标机IP:
-
-3. 出现如下LOG证明测试成功:
- 
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-
-
-有用的资源
+Userful links
 --------------------
 
-*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
-
-*[Adding-a-new-kernel-module-to-linux-source-tree](https://geekwentfreak-raviteja.rhcloud.com/blog/2010/10/24/adding-a-new-kernel-module-to-linux-source-tree/?utm_content=buffer03878&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).*
-
-*[Sample linux netfilter](https://github.com/andrewstucki/netfilter-skeleton).*
-
-*[Sample linux firewall using netfilter](https://github.com/smallen3/Linux-Firewall).*
+*[Loading_Images_with_U-Boot](http://wiki.emacinc.com/wiki/Loading_Images_with_U-Boot).*
 
 
 
