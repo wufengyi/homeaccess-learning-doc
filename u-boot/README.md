@@ -20,15 +20,9 @@ Load image using u-boot
         MSE500-Boot> setenv ipaddr 192.168.5.21
         MSE500-Boot> setenv serverip 192.168.5.200
 
-        192.168.5.21 is my board ip address.
-        192.168.5.200 is the ip address of my windows computer which holds a tftp server.
-
 2. Check connectivity using ping:
 
         MSE500-Boot> ping 192.168.5.200
-     
-        The result is as below,connect ok!       
-      
         Using MAC Address B8:F8:28:33:12:30
         PHY address is 0x05
         IC+ IP175D found.
@@ -38,7 +32,6 @@ Load image using u-boot
 
         
         MSE500-Boot> protect off all
-
         Un-Protect Flash Bank # 1
         .....................................................................................................................        ........... done
 
@@ -65,6 +58,8 @@ Load image using u-boot
           ###################
         done
         Bytes transferred = 3091572 (2f2c74 hex)
+        
+        
         MSE500-Boot> erase 0x30140000 0x3049FFFF
         Erasing sector 20 ... ok.
         Erasing sector 21 ... ok.
@@ -121,6 +116,8 @@ Load image using u-boot
         Erasing sector 72 ... ok.
         Erasing sector 73 ... ok.
         Erased 54 sectors
+        
+        
         MSE500-Boot> cp.b 0x40100000 0x30140000 0x360000
         Copy to Flash... ........................................................................................................... done
 
