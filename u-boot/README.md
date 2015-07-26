@@ -130,4 +130,28 @@ Userful links
 *[Loading_Images_with_U-Boot](http://wiki.emacinc.com/wiki/Loading_Images_with_U-Boot).*
 
 
+Download dhcp server on windows
+-------------------------------------
 
+*[Download dhcpsrv2.4.4 from here](http://www.dhcpserver.de/cms/).*
+
+
+install and start dhcp server on windows
+-------------------------------------
+
+Extract the dhcpsrv2.4.4 zip folder,and follow the readme.txt or
+*[Go to this link](http://www.dhcpserver.de/cms/running_the_server/).* to install and start dhcp server.
+
+
+Prepare the linux kernel image 
+-------------------------------------
+
+Put your file into dhcpsrv2.4.4/wwwroot
+
+
+Loading image on u-boot console
+-------------------------------------
+
+1. Into the U-boot console,type the following command:
+
+        MSE500-Boot> bootp
