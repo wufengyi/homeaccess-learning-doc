@@ -32,6 +32,7 @@ Loading image on u-boot console
         MSE500-Boot> bootp
         
 2. Erase flash and copy image:
+
         MSE500-Boot> erase 0x30140000 0x3049FFFF
         Erasing sector 20 ... ok.
         Erasing sector 21 ... ok.
