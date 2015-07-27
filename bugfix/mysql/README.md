@@ -18,7 +18,7 @@ View the problem solving process by other guys.
 1. Type "Package mysql-server-5.5 is not configured yet." into google search bar,press enter:
 
 
-2. Go to *[this link](http://stackoverflow.com/questions/13276088/cant-start-mysql5-5-on-ubuntu-12-04-dpkg-dependency-problems).*:
+2. Go to *[this link](http://stackoverflow.com/questions/13276088/cant-start-mysql5-5-on-ubuntu-12-04-dpkg-dependency-problems):*
 
 3. View the first answer by Ihsan Kusasi:
 
