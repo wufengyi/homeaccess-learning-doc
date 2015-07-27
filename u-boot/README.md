@@ -3,7 +3,8 @@ Linux image loading from u-boot
 
 If there is some error with your kernel ,that you can not load a image from console using ftpget ,you have another choice.
 
-This document introduce a new and faster way to load image to flash from u-boot.
+This document introduce a new and faster way to load image to flash from u-boot,both static ip and dhcp.
+
 
 Download and install Tftpd32 on windows
 -------------------------------------
