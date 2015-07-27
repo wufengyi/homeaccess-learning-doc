@@ -39,7 +39,6 @@ Config.in
    
 ha-helloworld.mk
 ```makefile
-{
   1 #############################################################
   2 #
   3 # helloworld
@@ -82,7 +81,6 @@ ha-helloworld.mk
  40 ifeq ($(strip $(BR2_PACKAGE_HELLOWORLD)),y)
  41 TARGETS+=ha-helloworld
  42 endif
-}
 ```
 ####4. 打开buildroot/package下面的Config.in:
 
@@ -93,9 +91,7 @@ ha-helloworld.mk
 ####5. 添加新的source到Config.in
 
 ```c
-{
 308 source "package/ha-helloworld/Config.in"
-}
 ```
 
 ####6. 在application文件夹下添加新文件夹
@@ -173,7 +169,6 @@ clean:
 helloworld.c
 
 ```c
-{
 #include <stdio.h>
 
 int main()
@@ -182,7 +177,6 @@ int main()
         printf("Hello world from HomeAcess BuildRoot!!!\n");
 
         return 0;
-}
 }
 ```
 配置编译应用程序
