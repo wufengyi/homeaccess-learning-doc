@@ -98,14 +98,15 @@ ha-helloworld.mk
 }
 ```
 
-####6. Add new directory ha-helloworld under application
+####6. 在application文件夹下添加新文件夹
 
         wufengyi@Server-U12:~/mse500-0.9.4/application$ pwd
         /home/wufengyi/mse500-0.9.4/application
         wufengyi@Server-U12:~/mse500-0.9.4/application$ mkdir ha-helloworld
         wufengyi@Server-U12:~/mse500-0.9.4/application$ cd ha-helloworld/
 
-####7. Create source file and Makefile 
+####7. 创建Makefile和helloworld.c 
+
         wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ pwd
         /home/wufengyi/mse500-0.9.4/application/ha-helloworld
         wufengyi@Server-U12:~/mse500-0.9.4/application/ha-helloworld$ vim Makefile
@@ -118,25 +119,84 @@ ha-helloworld.mk
 Makefile
 
 ```makefile
-  1 config BR2_PACKAGE_HELLOWORLD
-  2         bool "helloworld"
-  3         help
-  4           A sample application to understand how buildroot works
-  5
+BIN=helloworld
+OBJPATH=obj
+SRCPATH=src
+INCPATH=.
+
+CLEO_DIR = ../..
+LINUX_DIR = $(CLEO_DIR)/linux-2.6.25.10-spc300
+
+ifeq ($(CC_FOR_TARGET),) #direct compile
+CC=arm-linux-gcc
+CC_WITH_CFLAGS=$(CC) -I/opt/spidcom/spc300/usr/include -g -Os
+CC_WITHOUT_CFLAGS=$(CC)
+else #compile from buildroot
+CC_WITH_CFLAGS=$(CC)
+CC_WITHOUT_CFLAGS=$(CC_FOR_TARGET)
+endif
+
+RESPONSE_FILE = extra_flags
+INCLUDES = -I$(INCPATH) \
+                   -I$(LINUX_DIR)/include
+
+EXTRA_CFLAGS = $(INCLUDES) -MMD -Wall \
+                           @$(CLEO_DIR)/$(RESPONSE_FILE)
+
+SRCS=$(subst $(SRCPATH)/,,$(wildcard $(SRCPATH)/*.c))
+OBJS=$(addprefix $(OBJPATH)/,$(SRCS:.c=.o))
+DEPS=$(patsubst %o,%d,$(OBJS))
+
+all: $(BIN)
+
+$(BIN): $(OBJS)
+        $(CC_WITHOUT_CFLAGS) -o $@ $(OBJS)
+
+$(OBJPATH)/%.o: $(SRCPATH)/%.c
+        $(CC_WITH_CFLAGS)  -o $@ -c $<
+
+$(OBJS): | $(OBJPATH)
+
+$(OBJPATH):
+        mkdir $(OBJPATH)
+
+-include $(DEPS)
+
+.PHONY: all clean
+
+clean:
+        rm -f $(OBJS) $(DEPS) $(BIN)
+        rmdir $(OBJPATH)
+
 ```
 
+helloworld.c
+
+```c
+{
+#include <stdio.h>
+
+int main()
+{
+
+        printf("Hello world from HomeAcess BuildRoot!!!\n");
+
+        return 0;
+}
+}
+```
 配置编译应用程序
 ------------
 
 1. 进入buildroot下，配置kernel:
 
         wu@ubuntu:~/mse500-0.9.4$ cd buildroot
-        wu@ubuntu:~/mse500-0.9.4/buildroot$ make linux26-menuconfig
+        wu@ubuntu:~/mse500-0.9.4/buildroot$ make menuconfig
         
-2. 勾选netfilter和hanftest程序:
+2. 勾选helloworld程序:
 
-   进入Networking/Networking options/，
-   选中Network packet filtering framework 和Homeaccess Netfilter Test程序。
+   进入Package Selection for the target/Networking，
+   选中helloworld程序。
    
 3. 编译pkg文件:
 
@@ -147,30 +207,17 @@ Makefile
 
 1. 把pkg用ftp烧到目标机上:
 
-2. 在Windows上telnet目标机IP:
+2. 串口连接到目标机:
 
-3. 出现如下LOG证明测试成功:
+3. 执行文件:
  
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-        [TCP_C_IN] DEBUG: From IP address: 192.168.5.200
-        [TCP_C_OUT] DEBUG: To IP address: 192.168.5.200
-
+        # cd /usr/bin
+        # ./helloworld
+        Hello world from HomeAcess BuildRoot!!!
 
 有用的资源
 --------------------
 
-*[Understand the linux netfilter](https://www.csh.rit.edu/~mattw/proj/nf/).*
-
-*[Adding-a-new-kernel-module-to-linux-source-tree](https://geekwentfreak-raviteja.rhcloud.com/blog/2010/10/24/adding-a-new-kernel-module-to-linux-source-tree/?utm_content=buffer03878&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).*
-
-*[Sample linux netfilter](https://github.com/andrewstucki/netfilter-skeleton).*
-
-*[Sample linux firewall using netfilter](https://github.com/smallen3/Linux-Firewall).*
-
+*[Buildroot adding package](http://buildroot.uclibc.org/downloads/manual/manual.html#adding-packages).*
 
 
