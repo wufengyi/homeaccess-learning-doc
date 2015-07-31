@@ -1,4 +1,3 @@
-
 Resolve mysql server 5.5 installation problem
 ================================
 
@@ -8,6 +7,8 @@ It says:"Package mysql-server-5.5 is not configured yet."
 
 Every time I met with problems that I have no idea about,I turn to the search engine.Google or Baidu?Which one ?
 Definitely,Google.Google is the true engine trying to teach you something.Not the engine give you some ads,make you uncomfortable.
+
+*[Read this](http://two-wrongs.com/how-much-does-an-experienced-programmer-use-google).*
 
 Blow is the case:
 
