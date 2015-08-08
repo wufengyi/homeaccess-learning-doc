@@ -4,9 +4,8 @@ MME communication between eoc and ar9331 wifi router
 To make a project which accomplish the communication between eoc master and wifi router.eoc master can get&set wifi router's parameter successfully.
 
 
-
 Weekly summary
--------------------------
+===================================================
 
 
 Week1
