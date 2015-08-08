@@ -18,7 +18,7 @@ understand the mme source code on eoc.
 Week2
 -------------------------------
 
-1. 
+1.
 [Debug ar9331&mse510 mac communiaction](http://slides.com/wufengyi/deck#/)
 
       
