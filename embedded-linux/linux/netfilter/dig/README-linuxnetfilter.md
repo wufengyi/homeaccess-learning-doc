@@ -10,18 +10,6 @@ Linux packet handling process
 
 [Comprehensive explanation on TCP/IP stack](http://samples.sainsburysebooks.co.uk/9780470377840_sample_382501.pdf)
 
-
-Week1
--------------------------------
-1.
-
-
-Week2
--------------------------------
-
-1. 
-[Debug ar9331&mse510 mac communiaction](http://slides.com/wufengyi/deck#/)
-
       
 
 
