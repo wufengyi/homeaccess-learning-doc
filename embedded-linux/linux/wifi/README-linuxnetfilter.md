@@ -1,19 +1,17 @@
-Linux netfilter digging 
-================================
+MME communication between eoc and ar9331 wifi router
+===================================================
 
-在简单理解linux netfilter的原理之后，接下来会深入挖掘其中的原理。
+To make a project which accomplish the communication between eoc master and wifi router.eoc master can get&set wifi router's parameter successfully.
 
-Linux packet handling process
+
+Weekly summary
 -------------------------
-
-[Packet handling process when climb out of the driver layer](http://open-source.arkoon.net/kernel/kernel_net.png)
-
-[Comprehensive explanation on TCP/IP stack](http://samples.sainsburysebooks.co.uk/9780470377840_sample_382501.pdf)
 
 
 Week1
 -------------------------------
-1.
+
+1.understand the mme source code on eoc. 
 
 
 Week2
