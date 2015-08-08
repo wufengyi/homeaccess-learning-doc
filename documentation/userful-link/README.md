@@ -7,13 +7,18 @@ Twitter
 
 Medium
 ----------------------------------------
-
+https://medium.com
 
 
 
 Spec.fm
 --------------------
-http://spec.fm/show/developer-tea
+
+week1:
+http://spec.fm/show/developer-tea/14948
+https://developertea.com/episodes/7976
+http://spec.fm/show/developer-tea/14930
+http://spec.fm/show/developer-tea/14809
 
 
 
