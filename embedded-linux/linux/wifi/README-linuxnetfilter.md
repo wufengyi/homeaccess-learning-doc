@@ -11,7 +11,8 @@ Weekly summary
 Week1
 -------------------------------
 
-1.understand the mme source code on eoc. 
+1.
+understand the mme source code on eoc. 
 
 
 Week2
