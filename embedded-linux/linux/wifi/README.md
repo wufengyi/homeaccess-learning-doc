@@ -11,20 +11,17 @@ Weekly summary
 Week1
 -------------------------------
 
-1.
 understand the mme source code on eoc. 
 
 
 Week2
 -------------------------------
 
-1.
 [Debug ar9331&mse510 mac communiaction](http://slides.com/wufengyi/deck#/)
+
 
 Week3
 -------------------------------
-
-1.
 
 [Add vlan to mac packet](http://slides.com/wufengyi/add#/)
 
