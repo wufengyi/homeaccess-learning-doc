@@ -35,6 +35,7 @@ In this week,I make a lot progress debuging communication betwween eoc and 9331 
 so many useful debug techniques help me a lot.
 
 ```c
+/*
  *      netif_receive_skb - process receive buffer from network
  *      @skb: buffer to process
  *
@@ -70,13 +71,13 @@ This function is one of the most important function in network.When packet go ou
 
 Other thing I learn this week:
 
-[Creating a shared and static library with the gnu compiler](http://www.adp-gmbh.ch/cpp/gcc/create_lib.html)
+1:[Creating a shared and static library with the gnu compiler](http://www.adp-gmbh.ch/cpp/gcc/create_lib.html)
 
-[linking symbolx](http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html)
+2:[linking symbol](http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html)
 
-read the book 《Embedded Linux Primer》 chapter5,6,11 ，about linux system initialization and userspace initialization and busybox.
+3:read book 《Embedded Linux Primer》 chapter5,6,11,about linux system initialization,userspace initialization and busybox.
 
-code to genarate a shared library:
+4:code to genarate a shared library:
 
 ```c
 STAT_LIB=libhamme.a
@@ -133,7 +134,7 @@ $(OBJPATH):
         mkdir $(OBJPATH)
 ```
 
-Code to use shared library：
+5:Code to use shared library：
 
 ```c
 BIN=ha-mmed
