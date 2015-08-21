@@ -65,7 +65,7 @@ int netif_receive_skb(struct sk_buff *skb)
 }
 ```
 
-This function is one of the most important function in network.When packet go out of the driver layer,then It will jump in this function.So,you can debug your network coming packet inside netif_receive_skb function.very very useful.
+This function is one of the most important function in network.When packet go out of the driver layer,then It will jump in this function.So,you can debug your network coming packet inside netif_receive_skb function.I think every one who is working on network development should read the 《linux network internals》book.very very useful.
 
 
 Other thing I learn this week:
