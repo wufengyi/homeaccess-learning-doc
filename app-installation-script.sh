@@ -462,7 +462,11 @@ get_dhcp_and_Internet()
 	# and save Internet side network interface name in 
 	# EXT_INTERFACE variable
 	if ping -c1 8.8.8.8 >/dev/null 2>/dev/null; then
-		EXT_INTERFACE=`route -n | awk {'print $1 " " $8'} | grep "0.0.0.0" | awk {'print $2'}`
+	    if [ $PLATFORM = "DR2" ]; then
+			EXT_INTERFACE=`/sbin/routel | awk {'print $1 " " $3'} | grep "default" | awk {'print $2'}`
+		else
+			EXT_INTERFACE=`route -n | awk {'print $1 " " $8'} | grep "0.0.0.0" | awk {'print $2'}`
+		fi		
 		echo "Internet connection established on interface $EXT_INTERFACE"
 	else
 		# Checking eth0 for Internet connection
